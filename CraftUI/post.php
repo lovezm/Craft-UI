@@ -40,12 +40,18 @@
 
         <div class="post-nav">
             <?php $this->thePrev(
-                '<a class="post-nav-item prev hand-drawn-border" href="%s"><span class="post-nav-label">上一篇</span><span class="post-nav-title">%s</span></a>',
-                '<span class="post-nav-item prev is-empty hand-drawn-border"><span class="post-nav-label">上一篇</span><span class="post-nav-title">没有了</span></span>'
+                '%s',
+                '<span class="post-nav-item prev is-empty hand-drawn-border"><span class="post-nav-label">上一篇</span><span class="post-nav-title">没有了</span></span>',
+                array(
+                    'tagClass' => 'post-nav-item prev hand-drawn-border'
+                )
             ); ?>
             <?php $this->theNext(
-                '<a class="post-nav-item next hand-drawn-border" href="%s"><span class="post-nav-label">下一篇</span><span class="post-nav-title">%s</span></a>',
-                '<span class="post-nav-item next is-empty hand-drawn-border"><span class="post-nav-label">下一篇</span><span class="post-nav-title">没有了</span></span>'
+                '%s',
+                '<span class="post-nav-item next is-empty hand-drawn-border"><span class="post-nav-label">下一篇</span><span class="post-nav-title">没有了</span></span>',
+                array(
+                    'tagClass' => 'post-nav-item next hand-drawn-border'
+                )
             ); ?>
         </div>
 
