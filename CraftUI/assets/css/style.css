@@ -336,6 +336,26 @@ body::before {
   flex-wrap: wrap;
 }
 
+.post-card-tags a,
+.post-tags a {
+  background: transparent;
+  border: none;
+  color: var(--primary);
+  font-family: var(--font-hand);
+  font-size: 15px;
+  padding: 2px 8px;
+  text-decoration: underline;
+  text-decoration-style: wavy;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(224, 122, 95, 0.4);
+  filter: none;
+}
+
+.post-card-tags a:hover,
+.post-tags a:hover {
+  text-decoration-color: var(--primary);
+}
+
 .read-more {
   font-family: var(--font-hand);
   font-size: 15px;
@@ -647,6 +667,11 @@ body::before {
   text-decoration: none;
   transition: all 0.2s;
   filter: url(#hand-drawn);
+}
+
+.post-nav-item.is-empty {
+  opacity: 0.65;
+  pointer-events: none;
 }
 
 .post-nav-item:hover {
@@ -1813,6 +1838,20 @@ body::before {
   text-decoration: none;
   opacity: 0.7;
   transition: color 0.2s, opacity 0.2s;
+}
+
+.comment-body .comment-reply a {
+  font-family: var(--font-hand);
+  font-size: 14px;
+  color: var(--text-light);
+  text-decoration: none;
+  opacity: 0.7;
+  transition: color 0.2s, opacity 0.2s;
+}
+
+.comment-body .comment-reply a:hover {
+  color: var(--primary);
+  opacity: 1;
 }
 
 .comment-reply-btn:hover {

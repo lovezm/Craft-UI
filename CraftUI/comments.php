@@ -2,6 +2,35 @@
 
 <?php if (!$this->allow('comment')) return; ?>
 
+<?php
+if (!function_exists('craftui_comment_item')) {
+    function craftui_comment_item($comment, $options)
+    {
+?>
+        <div class="comment-item" id="<?php $comment->theId(); ?>">
+            <div class="comment-avatar"><?php $comment->gravatar('40', ''); ?></div>
+            <div class="comment-body">
+                <div class="comment-meta">
+                    <span class="comment-author"><?php $comment->author(); ?></span>
+                    <span class="comment-date"><?php $comment->date('Y-m-d H:i'); ?></span>
+                </div>
+                <div class="comment-text"><?php $comment->content(); ?></div>
+                <?php if ('waiting' === $comment->status): ?>
+                    <p class="comment-text"><?php _e('Your comment is awaiting moderation.'); ?></p>
+                <?php endif; ?>
+                <?php $comment->reply(_t('Reply'), ''); ?>
+                <?php if ($comment->children): ?>
+                    <div class="comment-children">
+                        <?php $comment->threadedComments($options); ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+<?php
+    }
+}
+?>
+
 <div class="comments-area" id="comments">
     <?php if ($this->have()): ?>
     <h3 class="comments-title"><?php $this->commentsNum(_t('No comments'), _t('1 comment'), _t('%d comments')); ?></h3>
@@ -17,6 +46,7 @@
         'commentStatus' => _t('Your comment is awaiting moderation.'),
         'avatarSize'    => 40,
         'defaultAvatar' => NULL,
+        'callback'      => 'craftui_comment_item',
     )); ?>
 
     <?php if ($this->options->commentsPageDisplay == 'enabled'): ?>
