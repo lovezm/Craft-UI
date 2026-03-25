@@ -550,6 +550,37 @@ function craftui_render_excerpt($widget, $length = 200, $more = '...')
     echo parseShortcodes($content);
 }
 
+function craftui_get_first_image_url($widget)
+{
+    if (!empty($widget->fields->banner)) {
+        return trim($widget->fields->banner);
+    }
+
+    $content = '';
+
+    if (!empty($widget->content) && is_string($widget->content)) {
+        $content = $widget->content;
+    } else {
+        ob_start();
+        $widget->content();
+        $content = ob_get_clean();
+    }
+
+    if (preg_match('/<img[^>]+src=["\']([^"\']+)["\']/i', $content, $m)) {
+        return html_entity_decode($m[1], ENT_QUOTES, 'UTF-8');
+    }
+
+    if (preg_match('/!\[[^\]]*\]\(([^)\s]+)(?:\s+"[^"]*")?\)/', $content, $m)) {
+        return html_entity_decode($m[1], ENT_QUOTES, 'UTF-8');
+    }
+
+    if (preg_match('/\[figure\s+src=["\']([^"\']+)["\']/i', $content, $m)) {
+        return html_entity_decode($m[1], ENT_QUOTES, 'UTF-8');
+    }
+
+    return '';
+}
+
 Typecho_Plugin::factory('Widget_Abstract_Contents')->contentEx = function ($content, $widget, $lastResult) {
     $content = empty($lastResult) ? $content : $lastResult;
     return parseShortcodes($content);

@@ -35,6 +35,7 @@
         <?php if ($this->have()): ?>
         <div class="post-list">
             <?php while ($this->next()): ?>
+            <?php $cardThumb = craftui_get_first_image_url($this); ?>
             <article class="post-card hand-drawn-border">
                 <h2 class="post-card-title">
                     <a href="<?php $this->permalink(); ?>"><?php $this->title(); ?></a>
@@ -50,8 +51,15 @@
                     <span class="meta-sep">/</span>
                     <span><?php $this->commentsNum('%d'); ?> comments</span>
                 </div>
-                <div class="post-card-excerpt">
-                    <?php craftui_render_excerpt($this, 200, '...'); ?>
+                <div class="post-card-main<?php if (!empty($cardThumb)): ?> has-thumb<?php endif; ?>">
+                    <div class="post-card-excerpt">
+                        <?php craftui_render_excerpt($this, 200, '...'); ?>
+                    </div>
+                    <?php if (!empty($cardThumb)): ?>
+                    <a class="post-card-thumb" href="<?php $this->permalink(); ?>" aria-label="<?php $this->title(); ?>">
+                        <img src="<?php echo htmlspecialchars($cardThumb); ?>" alt="<?php $this->title(); ?>">
+                    </a>
+                    <?php endif; ?>
                 </div>
                 <div class="post-card-footer">
                     <div class="post-card-tags">
