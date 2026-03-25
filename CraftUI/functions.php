@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 
 function themeConfig($form)
@@ -590,3 +590,114 @@ Typecho_Plugin::factory('Widget_Abstract_Contents')->excerptEx = function ($cont
     $content = empty($lastResult) ? $content : $lastResult;
     return parseShortcodes($content);
 };
+
+function craftui_admin_editor_shortcodes($post = null)
+{
+?>
+<script>
+(function () {
+    function insertText(textarea, text) {
+        var start = textarea.selectionStart;
+        var end = textarea.selectionEnd;
+        var value = textarea.value;
+        textarea.value = value.slice(0, start) + text + value.slice(end);
+        textarea.selectionStart = textarea.selectionEnd = start + text.length;
+        textarea.focus();
+    }
+
+    function wrapSelection(textarea, left, right, placeholder) {
+        var start = textarea.selectionStart;
+        var end = textarea.selectionEnd;
+        var value = textarea.value;
+        var selected = value.slice(start, end);
+        if (!selected) selected = placeholder || '';
+        var text = left + selected + right;
+        textarea.value = value.slice(0, start) + text + value.slice(end);
+        textarea.selectionStart = start + left.length;
+        textarea.selectionEnd = start + left.length + selected.length;
+        textarea.focus();
+    }
+
+    function createButton(label, action) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'craftui-shortcode-btn';
+        btn.textContent = label;
+        btn.addEventListener('click', action);
+        return btn;
+    }
+
+    function mount() {
+        var textarea = document.getElementById('text');
+        if (!textarea || document.getElementById('craftui-shortcode-toolbar')) return;
+
+        var bar = document.createElement('div');
+        bar.id = 'craftui-shortcode-toolbar';
+        bar.className = 'craftui-shortcode-toolbar';
+
+        var title = document.createElement('span');
+        title.className = 'craftui-shortcode-title';
+        title.textContent = 'CraftUI 短代码';
+        bar.appendChild(title);
+
+        var buttons = [
+            ['下划线', function () { wrapSelection(textarea, '[underline]', '[/underline]', '文本'); }],
+            ['高亮', function () { wrapSelection(textarea, '[highlight]', '[/highlight]', '文本'); }],
+            ['框注', function () { wrapSelection(textarea, '[box]', '[/box]', '重点'); }],
+            ['波浪线', function () { wrapSelection(textarea, '[wavy]', '[/wavy]', '强调'); }],
+            ['提示框', function () { wrapSelection(textarea, '[callout type="info"]', '[/callout]', '提示内容'); }],
+            ['按钮', function () { wrapSelection(textarea, '[btn url="https://example.com" style="primary"]', '[/btn]', '按钮文字'); }],
+            ['代码块', function () { insertText(textarea, '\n[codeblock lang="js" filename="demo.js"]\nconsole.log(\"hello\");\n[/codeblock]\n'); }],
+            ['折叠面板', function () { wrapSelection(textarea, '[accordion title="点击展开"]', '[/accordion]', '面板内容'); }],
+            ['进度条', function () { insertText(textarea, '[progress label="开发进度" value="70" color="primary"]'); }]
+        ];
+
+        for (var i = 0; i < buttons.length; i++) {
+            bar.appendChild(createButton(buttons[i][0], buttons[i][1]));
+        }
+
+        textarea.parentNode.insertBefore(bar, textarea);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', mount);
+    } else {
+        mount();
+    }
+})();
+</script>
+<style>
+.craftui-shortcode-toolbar {
+    margin: 10px 0 8px;
+    padding: 8px 10px;
+    border: 1px solid #d8d8d8;
+    background: #fafafa;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+}
+.craftui-shortcode-title {
+    font-weight: 600;
+    margin-right: 8px;
+    color: #444;
+}
+.craftui-shortcode-btn {
+    border: 1px solid #cfcfcf;
+    background: #fff;
+    color: #333;
+    padding: 3px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 1.4;
+}
+.craftui-shortcode-btn:hover {
+    background: #f0f0f0;
+}
+</style>
+<?php
+}
+
+Typecho_Plugin::factory('admin/write-post.php')->bottom = 'craftui_admin_editor_shortcodes';
+Typecho_Plugin::factory('admin/write-page.php')->bottom = 'craftui_admin_editor_shortcodes';
