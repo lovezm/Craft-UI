@@ -1,20 +1,20 @@
-# Craft UI
+﻿# Craft UI
 
-A hand-drawn style UI design system for blogs, built with vanilla JavaScript, CSS, and SVG. No frameworks required.
+CraftUI is a hand-drawn style theme for Typecho blogs, built with vanilla JavaScript, CSS, and SVG.
 
-[Live Demo](https://lovezm.github.io/Craft-UI)
+[Live Demo](https://9yo.cc)
 
 ## Features
 
-- **Hand-drawn aesthetic** — SVG filters (`feTurbulence` + `feDisplacementMap`) create organic wobble effects on borders, shapes, and lines
-- **Real-time theme panel** — Change primary color, background, fonts, wobble intensity, and line weight live
-- **Cursor trails** — Star or bubble particles follow your cursor
-- **Rich components** — Typography, code blocks with syntax highlighting, callouts, tags, tables, modals, toasts, accordions, progress bars, avatars, and more
-- **Custom fonts** — Bundled Chinese and Latin hand-drawn fonts
-- **Animations** — Float, swing, spin, twinkle, pulse, and squiggly motion effects
-- **Confetti** — Click-to-celebrate effect
-- **Article TOC** — Auto-generated table of contents for long-form content
-- **Dark mode ready** — Theme panel switches to dark backgrounds with adjusted text colors
+- **Hand-drawn aesthetic** - SVG filters (`feTurbulence` + `feDisplacementMap`) create organic wobble effects on borders, shapes, and lines
+- **Real-time theme panel** - Change primary color, background, fonts, wobble intensity, and line weight live
+- **Cursor trails** - Star or bubble particles follow your cursor
+- **Rich components** - Typography, code blocks with syntax highlighting, callouts, tags, tables, modals, toasts, accordions, progress bars, avatars, and more
+- **Custom fonts** - Bundled Chinese and Latin hand-drawn fonts
+- **Animations** - Float, swing, spin, twinkle, pulse, and squiggly motion effects
+- **Confetti** - Click-to-celebrate effect
+- **Article TOC** - Auto-generated table of contents for long-form content
+- **Dark mode ready** - Theme panel switches to dark backgrounds with adjusted text colors
 
 ## Quick Start
 
@@ -35,7 +35,7 @@ Production files will be output to the `dist/` directory.
 
 ## Project Structure
 
-```
+```text
 ├── main.js              # Entry point, orchestrates all modules
 ├── svg-filters.js       # SVG filters + shape generators
 ├── interactive.js       # UI interactions (modals, toasts, etc.)
@@ -51,9 +51,9 @@ Production files will be output to the `dist/` directory.
 
 The hand-drawn look comes from two systems working together:
 
-1. **SVG Filters** — Injected into the DOM via `createSVGFilters()`. The `#hand-drawn` filter uses `feTurbulence` to generate noise and `feDisplacementMap` to distort element edges.
+1. **SVG Filters** - Injected into the DOM via `createSVGFilters()`. The `#hand-drawn` filter uses `feTurbulence` to generate noise and `feDisplacementMap` to distort element edges.
 
-2. **CSS `filter: url(#hand-drawn)`** — The `.hand-drawn-border` class applies these filters to elements, making straight borders appear naturally wobbly.
+2. **CSS `filter: url(#hand-drawn)`** - The `.hand-drawn-border` class applies these filters to elements, making straight borders appear naturally wobbly.
 
 Theming is driven entirely by CSS custom properties (e.g. `--primary`, `--bg`, `--text`), updated in real-time by the theme panel.
 
