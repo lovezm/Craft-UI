@@ -2,48 +2,30 @@
 
 <?php if (!$this->allow('comment')) return; ?>
 
-<?php if (!function_exists('threadedComments')): ?>
-<?php function threadedComments($comments, $options) { ?>
-<div class="comment-item" id="<?php $comments->theId(); ?>">
-    <div class="comment-avatar"><?php $comments->gravatar('40', ''); ?></div>
-    <div class="comment-body">
-        <div class="comment-meta">
-            <span class="comment-author"><?php $comments->author(); ?></span>
-            <span class="comment-date"><?php $comments->date('Y-m-d H:i'); ?></span>
-        </div>
-        <div class="comment-text"><?php $comments->content(); ?></div>
-        <?php $comments->reply(_t('Reply')); ?>
-        <?php if ($comments->children): ?>
-        <div class="comment-children">
-            <?php $comments->threadedComments($options); ?>
-        </div>
-        <?php endif; ?>
-    </div>
-</div>
-<?php } ?>
-<?php endif; ?>
-
 <div class="comments-area" id="comments">
-    <?php if ($this->have()): ?>
+    <?php $this->comments()->to($comments); ?>
+    <?php if ($comments->have()): ?>
     <h3 class="comments-title"><?php $this->commentsNum(_t('No comments'), _t('1 comment'), _t('%d comments')); ?></h3>
 
-    <?php $this->listComments(array(
-        'before'        => '<div class="comment-list">',
-        'after'         => '</div>',
-        'beforeAuthor'  => '',
-        'afterAuthor'   => '',
-        'beforeDate'    => '',
-        'afterDate'     => '',
-        'replyWord'     => _t('Reply'),
-        'commentStatus' => _t('Your comment is awaiting moderation.'),
-        'avatarSize'    => 40,
-        'defaultAvatar' => NULL,
-        'callback'      => 'threadedComments',
-    )); ?>
+    <ol id="comment_list" class="comment-list">
+        <?php while ($comments->next()): ?>
+        <li class="comment-item" id="<?php $comments->theId(); ?>">
+            <div class="comment-avatar"><?php $comments->gravatar('40', ''); ?></div>
+            <div class="comment-body">
+                <div class="comment-meta">
+                    <span class="comment-author"><?php $comments->author(); ?></span>
+                    <span class="comment-date"><?php $comments->date('Y-m-d H:i'); ?></span>
+                </div>
+                <div class="comment-text"><?php $comments->content(); ?></div>
+                <div class="comment-reply"><?php $comments->reply(_t('Reply')); ?></div>
+            </div>
+        </li>
+        <?php endwhile; ?>
+    </ol>
 
     <?php if ($this->options->commentsPageDisplay == 'enabled'): ?>
     <nav class="sketch-pagination" style="margin-top: 24px;">
-        <?php $this->pageNav('&laquo;', '&raquo;'); ?>
+        <?php $comments->pageNav('&laquo;', '&raquo;'); ?>
     </nav>
     <?php endif; ?>
 
