@@ -4,6 +4,8 @@ CraftUI is a hand-drawn style theme for Typecho blogs, built with vanilla JavaSc
 
 [Live Demo](https://9yo.cc)
 
+<img width="1110" height="1171" alt="image" src="https://github.com/user-attachments/assets/febc96e7-25f0-492c-9d44-73bebbec9491" />
+
 ## Features
 
 - **Hand-drawn aesthetic** - SVG filters (`feTurbulence` + `feDisplacementMap`) create organic wobble effects on borders, shapes, and lines
