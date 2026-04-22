@@ -7,7 +7,7 @@
             <?php if ($this->options->avatarUrl): ?>
             <img src="<?php $this->options->avatarUrl(); ?>" alt="<?php $this->options->title(); ?>" class="sketch-avatar-img sketch-avatar-lg hand-drawn-border">
             <?php else: ?>
-            <div class="sketch-avatar sketch-avatar-lg hand-drawn-border"><?php echo mb_substr($this->options->title(), 0, 1); ?></div>
+            <div class="sketch-avatar sketch-avatar-lg hand-drawn-border"><?php echo mb_substr($this->options->title, 0, 1); ?></div>
             <?php endif; ?>
             <h4 class="sidebar-author"><?php $this->options->title(); ?></h4>
             <?php if ($this->options->authorBio): ?>
