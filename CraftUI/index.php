@@ -44,7 +44,7 @@
                     <span><?php $this->date('Y-m-d'); ?></span>
                     <span class="meta-sep">/</span>
                     <span><?php $this->author(); ?></span>
-                    <?php if ($this->categories->length > 0): ?>
+                    <?php if (!empty($this->categories)): ?>
                     <span class="meta-sep">/</span>
                     <span><?php $this->category(','); ?></span>
                     <?php endif; ?>
