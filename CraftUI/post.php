@@ -19,7 +19,7 @@
                 <span><?php $this->date('Y-m-d'); ?></span>
                 <span>/</span>
                 <a href="<?php $this->author->permalink(); ?>"><?php $this->author(); ?></a>
-                <?php if ($this->categories->length > 0): ?>
+                <?php if (!empty($this->categories)): ?>
                 <span>/</span>
                 <span><?php $this->category(','); ?></span>
                 <?php endif; ?>
